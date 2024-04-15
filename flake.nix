@@ -65,6 +65,5 @@
                     inherit userSettings;
                 };
             };
-        };
     };
 }
