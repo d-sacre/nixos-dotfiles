@@ -19,13 +19,24 @@ to take effect.
 ```sh
 nixos-rebuild switch --flake <FILEPATH>#<CONFIGNAME>
 ```
-## REMARKS:
+### REMARKS:
 - If the system's hostname is identical to `<CONFIGNAME>` specified in the Flake, `#<CONFIGNAME>` can be omitted.
 - If the Flake file name is `flake.nix`, one does not have to give a full file path, but only needs to specify the directory where the Flake is located.
 
 **SOURCE:**<br>
 Youtube Video: Libre Phoenix: You Should Use Flakes Right Away in NixOS!<br>
 [https://www.youtube.com/watch?v=ACybVzRvDhs&t=1346s](https://www.youtube.com/watch?v=ACybVzRvDhs&t=1346s)
+
+## Activate Home Manager of Stable Branch in Standalone Mode
+1. Open Terminal and add `nix-channel` for stable Home Manager Release 
+```sh
+nix-channel --add https://github.com/nix-community/home-manager/archive/release-23.11.tar.gz home-manager
+nix-channel --update
+```
+2. Install Home Manager
+```sh
+nix-shell '<home-manager>' -A install
+```
 
 General Inspiration: <br>
 https://gitlab.com/Oglo12/nixos-config<br><br>

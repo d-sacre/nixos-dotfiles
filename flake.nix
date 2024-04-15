@@ -3,14 +3,16 @@
 
     inputs = {
         nixpkgs.url = "nixpkgs/nixos-23.11";
+        home-manager.url = "github:nix-community/home-manager/release-23.11";
+        home-manager.inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    outputs = {self, nixpkgs, ...}: 
+    outputs = {self, nixpkgs, home-manager, ...}: 
     let
         # DESCRIPTION: Custom System Settings
         systemSettings = {
             hostName = "nixos";
-            system = "x86_64-linux";
+            architecture = "x86_64-linux";
             version = "23.11";
             timeZone = "Europe/Berlin";
             locale = {
@@ -37,10 +39,12 @@
 
         # DESCRIPTION: Nix Boilerplate
         lib = nixpkgs.lib;
+        pkgs = nixpkgs.legacyPackages.${systemSettings.architecture};
+        
     in {
         nixosConfigurations = {
             nixos = lib.nixosSystem {
-                system = systemSettings.system;
+                system = systemSettings.architecture;
                 modules = [ ./configuration.nix ];
 
                 # DESCRIPTION: Pass special args to NixOS configuration
@@ -49,6 +53,13 @@
                     inherit systemSettings;
                     inherit userSettings;
                 };
+            };
+        };
+
+        homeConfigurations = {
+            user = home-manager.lib.homeManagerConfiguration {
+                inherit pkgs;
+                modules = [ ./home.nix ];
             };
         };
     };
