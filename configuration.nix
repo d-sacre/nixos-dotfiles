@@ -1,7 +1,4 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
+# Main System Configuration File
 { config, pkgs, systemSettings, userSettings, ... }:
 
 {
@@ -13,7 +10,7 @@
   # Bootloader.
   boot.loader.grub = {
     enable = true;
-    device = "/dev/sda";
+    device = systemSettings.installation.bootloader.device;
     useOSProber = true;
   };
 
@@ -43,14 +40,13 @@
     LC_TIME = systemSettings.locale.extra;
   };
 
-
   services.xserver = {
     # Enable the X11 windowing system.
     enable = true;
 
     # Enable the XFCE Desktop Environment.
     displayManager.lightdm.enable = true;
-    desktopManager.xfce.enable = true;
+    desktopManager.xfce.enable = if (userSettings.desktopManager == "xfce") then true else false;
 
     # Configure keymap in X11
     layout = systemSettings.keyboard.layout;
@@ -59,7 +55,7 @@
 
   # Configure console keymap
   # REMARK: Should be composed from variables
-  console.keyMap = "de-latin1-nodeadkeys";
+  console.keyMap = systemSettings.keyboard.layout + "-latin1-" + systemSettings.keyboard.variant; #"de-latin1-nodeadkeys";
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -104,45 +100,20 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "23.11"; # Did you read the comment?
+  system.stateVersion = systemSettings.version; # Did you read the comment?
 
   # Enable experimental features so that Flakes are supported
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  # DESCRIPTION: Enable virtualization features
+  # DESCRIPTION: Enable virtualization features if installation is as virtual machine
   # REMARK: Should be later put into an if-statement
   # SOURCE: https://nixos.wiki/wiki/VirtualBox
-
-  ## Original
-  # virtualisation.virtualbox.host.enable = true;
-  # users.extraGroups.vboxusers.members = [ "user-with-access-to-virtualbox" ];
-
-  # # REMARK: Requires nixpkgs.config.allowUnfree = true;
-  # # FUTURE: Add an if-check or set it if not already set
-  # virtualisation.virtualbox.host.enableExtensionPack = true;
-
-  # virtualisation.virtualbox.guest.enable = true;
-  # virtualisation.virtualbox.guest.x11 = true;
-
-  ## Variant 1
-  # virtualisation.virtualbox.host = {
-  #   enable = true;
-  #   enableExtensionPack = true;
-  # };
-
-  # virtualisation.virtualbox.guest = {
-  #   enable = true;
-  #   x11 = true;
-  # };
-
-  # users.extraGroups.vboxusers.members = [ "user-with-access-to-virtualbox" ];
-
   virtualisation.virtualbox.host = if (systemSettings.installation.type == "virtual") then {
     enable = true;
     enableExtensionPack = true;
   } else {
     enable = false;
-    enableExtensionPack = false;
+    enableExtensionPack = false; # REMARK: Requires nixpkgs.config.allowUnfree = true;
   };
 
   virtualisation.virtualbox.guest = if (systemSettings.installation.type == "virtual") then {

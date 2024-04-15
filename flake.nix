@@ -7,10 +7,11 @@
 
     outputs = {self, nixpkgs, ...}: 
     let
-        # DESCRIPTION: Custom System and User Settings
+        # DESCRIPTION: Custom System Settings
         systemSettings = {
             hostName = "nixos";
             system = "x86_64-linux";
+            version = "23.11";
             timeZone = "Europe/Berlin";
             locale = {
                 default = "en_US.UTF-8";
@@ -21,12 +22,17 @@
                 variant = "nodeadkeys";
             };
             installation = {
-                type = "virtual"; # Allowed values: virtual
+                type = "virtual"; # Allowed values: virtual,
+                bootloader = {
+                    device = "/dev/sda";
+                };
             };
         };
 
+        # DESCRIPTION: Custom User Settings
         userSettings = {
             userName = "nixos";
+            desktopManager = "xfce"; # Allowed values: xfce
         };
 
         # DESCRIPTION: Nix Boilerplate
