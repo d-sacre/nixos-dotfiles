@@ -26,7 +26,7 @@
   };
 
   # Set your time zone.
-  time.timeZone = userSettings.timeZone;
+  time.timeZone = systemSettings.timeZone;
 
   # Select internationalisation properties.
   i18n.defaultLocale = systemSettings.locale.default;
