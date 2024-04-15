@@ -18,7 +18,7 @@
   };
 
   networking = {
-    hostName = "nixos"; # Define your hostname.
+    hostName = systemSettings.hostName; # Define your hostname.
     # wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
     # Enable networking
@@ -81,7 +81,7 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.${userSettings.userName} = {
     isNormalUser = true;
-    description = "nixos";
+    description = userSettings.userName;
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
       firefox
@@ -112,14 +112,49 @@
   # DESCRIPTION: Enable virtualization features
   # REMARK: Should be later put into an if-statement
   # SOURCE: https://nixos.wiki/wiki/VirtualBox
-  virtualisation.virtualbox.host.enable = true;
-  users.extraGroups.vboxusers.members = [ "user-with-access-to-virtualbox" ];
 
-  # REMARK: Requires nixpkgs.config.allowUnfree = true;
-  # FUTURE: Add an if-check or set it if not already set
-  virtualisation.virtualbox.host.enableExtensionPack = true;
+  ## Original
+  # virtualisation.virtualbox.host.enable = true;
+  # users.extraGroups.vboxusers.members = [ "user-with-access-to-virtualbox" ];
 
-  virtualisation.virtualbox.guest.enable = true;
-  virtualisation.virtualbox.guest.x11 = true;
+  # # REMARK: Requires nixpkgs.config.allowUnfree = true;
+  # # FUTURE: Add an if-check or set it if not already set
+  # virtualisation.virtualbox.host.enableExtensionPack = true;
+
+  # virtualisation.virtualbox.guest.enable = true;
+  # virtualisation.virtualbox.guest.x11 = true;
+
+  ## Variant 1
+  # virtualisation.virtualbox.host = {
+  #   enable = true;
+  #   enableExtensionPack = true;
+  # };
+
+  # virtualisation.virtualbox.guest = {
+  #   enable = true;
+  #   x11 = true;
+  # };
+
+  # users.extraGroups.vboxusers.members = [ "user-with-access-to-virtualbox" ];
+
+  virtualisation.virtualbox.host = if (systemSettings.installation.type == "virtual") then {
+    enable = true;
+    enableExtensionPack = true;
+  } else {
+    enable = false;
+    enableExtensionPack = false;
+  };
+
+  virtualisation.virtualbox.guest = if (systemSettings.installation.type == "virtual") then {
+    enable = true;
+    x11 = true;
+  } else {
+    enable = false;
+    x11 = false;
+  };
+
+  users.extraGroups.vboxusers.members = if (systemSettings.installation.type == "virtual") then 
+    [ "user-with-access-to-virtualbox" ]
+  else [];
 
 }

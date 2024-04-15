@@ -9,6 +9,7 @@
     let
         # DESCRIPTION: Custom System and User Settings
         systemSettings = {
+            hostName = "nixos";
             system = "x86_64-linux";
             timeZone = "Europe/Berlin";
             locale = {
@@ -18,6 +19,9 @@
             keyboard = {
                 layout = "de";
                 variant = "nodeadkeys";
+            };
+            installation = {
+                type = "virtual"; # Allowed values: virtual
             };
         };
 
