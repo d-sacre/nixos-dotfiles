@@ -38,6 +38,18 @@ nix-channel --update
 nix-shell '<home-manager>' -A install
 ```
 
+## Running Home Manager
+This flake requires the home manager to be run as follows:
+```sh
+home-manager switch --flake <PATH>#<USERNAME>
+```
+For example:
+```sh
+home-manager switch --flake .#nixos
+```
+
+Eventhough the username was identical with the name of the configuration, the configuration would otherwise not be found.
+
 General Inspiration: <br>
 https://gitlab.com/Oglo12/nixos-config<br><br>
 
