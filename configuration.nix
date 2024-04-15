@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, systemSettings, userSettings, ... }:
 
 {
   imports =
@@ -26,21 +26,21 @@
   };
 
   # Set your time zone.
-  time.timeZone = "Europe/Berlin";
+  time.timeZone = userSettings.timeZone;
 
   # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
+  i18n.defaultLocale = systemSettings.locale.default;
 
   i18n.extraLocaleSettings = {
-    LC_ADDRESS = "de_DE.UTF-8";
-    LC_IDENTIFICATION = "de_DE.UTF-8";
-    LC_MEASUREMENT = "de_DE.UTF-8";
-    LC_MONETARY = "de_DE.UTF-8";
-    LC_NAME = "de_DE.UTF-8";
-    LC_NUMERIC = "de_DE.UTF-8";
-    LC_PAPER = "de_DE.UTF-8";
-    LC_TELEPHONE = "de_DE.UTF-8";
-    LC_TIME = "de_DE.UTF-8";
+    LC_ADDRESS = systemSettings.locale.extra;
+    LC_IDENTIFICATION = systemSettings.locale.extra;
+    LC_MEASUREMENT = systemSettings.locale.extra;
+    LC_MONETARY = systemSettings.locale.extra;
+    LC_NAME = systemSettings.locale.extra;
+    LC_NUMERIC = systemSettings.locale.extra;
+    LC_PAPER = systemSettings.locale.extra;
+    LC_TELEPHONE = systemSettings.locale.extra;
+    LC_TIME = systemSettings.locale.extra;
   };
 
 
@@ -53,11 +53,12 @@
     desktopManager.xfce.enable = true;
 
     # Configure keymap in X11
-    layout = "de";
-    xkbVariant = "nodeadkeys";
+    layout = systemSettings.keyboard.layout;
+    xkbVariant = systemSettings.keyboard.variant;
   };
 
   # Configure console keymap
+  # REMARK: Should be composed from variables
   console.keyMap = "de-latin1-nodeadkeys";
 
   # Enable CUPS to print documents.
@@ -78,7 +79,7 @@
   # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.nixos = {
+  users.users.${userSettings.userName} = {
     isNormalUser = true;
     description = "nixos";
     extraGroups = [ "networkmanager" "wheel" ];
