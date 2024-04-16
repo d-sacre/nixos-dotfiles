@@ -59,6 +59,12 @@ sudo chgrp users flake.lock
 ```
 <br>**Source:** https://youtu.be/IiyBeR-Guqw?si=j4Jk_bOjpTWtI_SA&t=1001
 
+## Warning: Option will be overwritten
+Some changes like in the Firefox configuration will not work unless the backup option is set
+```sh
+home-manager switch -b backup --flake <PATH>#<USERNAME>
+```
+
 General Inspiration: <br>
 https://gitlab.com/Oglo12/nixos-config<br><br>
 
