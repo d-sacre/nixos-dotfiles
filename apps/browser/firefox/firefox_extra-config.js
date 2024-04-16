@@ -53,7 +53,8 @@ user_pref("browser.urlbar.shortcuts.bookmarks", false);
 // urlbar history = false
 user_pref("browser.urlbar.shortcuts.history", false);
 // urlbar shortcuts tabs = false
-user_pref// beacon = false
+// missing
+// beacon = false
 user_pref("beacon.enabled", false);
 // about config warning = false
 user_pref("browser.aboutConfig.showWarning", false); 
@@ -159,5 +160,4 @@ user_pref("privacy.firstparty.isolate", true);
 user_pref("signon.rememberSignons", false);
 // css stylesheets = true
 user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
-// theme
-user_pref("widget.content.gtk-theme-override", "Adwaita:dark");
+
