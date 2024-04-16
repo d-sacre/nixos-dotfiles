@@ -5,7 +5,6 @@
   imports =
   [ # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    ./apps/browser/firefox.nix
   ];
 
   # Bootloader.
@@ -80,9 +79,6 @@
     isNormalUser = true;
     description = userSettings.userName;
     extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-      firefox
-    ];
   };
 
   # Allow unfree packages
