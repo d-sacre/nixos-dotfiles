@@ -17,7 +17,7 @@ to take effect.
 
 ## Change NixOS Configuration to the one Specified in Flake
 ```sh
-nixos-rebuild switch --flake <FILEPATH>#<CONFIGNAME>
+sudo nixos-rebuild switch --flake <FILEPATH>#<CONFIGNAME>
 ```
 ### REMARKS:
 - If the system's hostname is identical to `<CONFIGNAME>` specified in the Flake, `#<CONFIGNAME>` can be omitted.
@@ -49,6 +49,15 @@ home-manager switch --flake .#nixos
 ```
 
 Eventhough the username was identical with the name of the configuration, the configuration would otherwise not be found.
+
+## Permission Issue with Flake.lock
+While running `home-manager switch --flake`, there might be an error that the `flake.lock` file cannot be opened. This might happen if at some point in time a `sudo nixos-rebuild switch --flake` command has been run.<br> 
+In some cases, it is sufficient to run `sudo nixos-rebuild switch --flake` to update all the flake settings properly. This should work for changes required by NixOS and/or Home Manager. If not, the other option is to set the permissions:
+```sh
+sudo chown <USERNAME> flake.lock
+sudo chgrp users flake.lock
+```
+<br>**Source:** https://youtu.be/IiyBeR-Guqw?si=j4Jk_bOjpTWtI_SA&t=1001
 
 General Inspiration: <br>
 https://gitlab.com/Oglo12/nixos-config<br><br>
