@@ -66,4 +66,5 @@ Specific Inspiration (Power Saving, Greeter BG, Garbage Collection):<br>
 https://github.com/AlexCKunze/NixOS-build/blob/main/etc/nixos/configuration.nix<br><br>
 
 Custom Firefox Config:<br>
-https://github.com/NapoleonWils0n/nixos-dotfiles/blob/master/nixos-dotfiles.org 
+https://github.com/NapoleonWils0n/nixos-dotfiles/blob/master/nixos-dotfiles.org<br>
+https://github.com/mahmoudk1000/nix-config
