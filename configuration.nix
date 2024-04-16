@@ -3,9 +3,10 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  [ # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ./apps/browser/firefox.nix
+  ];
 
   # Bootloader.
   boot.loader.grub = {
