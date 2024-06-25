@@ -49,8 +49,8 @@
       bbenoist.nix
       ms-python.python
       ms-vscode.cpptools
-      forevolve.git-extensions-for-vs-code
-      geequlim.godot-tools
+      #forevolve.git-extensions-for-vs-code
+      #geequlim.godot-tools
     ];
   };
 

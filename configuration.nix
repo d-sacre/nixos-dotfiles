@@ -88,7 +88,12 @@
   };
 
   # DESCRIPTION: Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs = {
+    config = {
+      allowUnfree = true;
+      allowUnfreePredicate = (_: true); # REMARK: Required so that home manager will install unfree packages
+    };
+  };
 
   # DESCRIPTION: List packages installed in system profile. To search, run:
   # $ nix search wget
