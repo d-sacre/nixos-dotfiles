@@ -7,9 +7,9 @@
     # might fail due to incompatibility.
 
     inputs = {
-        nixpkgs.url = "nixpkgs/nixos-23.11";
+        nixpkgs.url = "nixpkgs/nixos-24.05";
         nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
-        home-manager.url = "github:nix-community/home-manager/release-23.11";
+        home-manager.url = "github:nix-community/home-manager/release-24.05";
         home-manager.inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -19,7 +19,7 @@
         systemSettings = {
             hostName = "nixos";
             architecture = "x86_64-linux";
-            version = "23.11";
+            version = "24.05";
             timeZone = "Europe/Berlin";
             locale = {
                 default = "en_US.UTF-8";
