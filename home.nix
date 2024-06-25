@@ -6,7 +6,7 @@
     ./apps/browser/firefox/firefox.nix
   ];
 
-  # Home Manager needs a bit of information about you and the paths it should
+  # DESCRIPTION: Home Manager needs a bit of information about you and the paths it should
   # manage.
   home = {
     username = userSettings.userName;
@@ -23,7 +23,7 @@
     stateVersion = systemSettings.version; # Please read the comment before changing.
   };
 
-  # The home.packages option allows you to install Nix packages into your
+  # DESCRIPTION: The home.packages option allows you to install Nix packages into your
   # environment.
   # REMARK: Split into different package sets to allow for parallel usage of
   # stable and unstable versions
@@ -82,6 +82,6 @@
   #   # EDITOR = "emacs";
   # };
 
-  # Let Home Manager install and manage itself.
+  # DESCRIPTION: Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 }

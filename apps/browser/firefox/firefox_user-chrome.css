@@ -3,10 +3,10 @@
 @namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"); /* only needed once */
 
 /* hide close, minimize window buttons */
-.titlebar-min {display:none!important;}
+/* .titlebar-min {display:none!important;}
 .titlebar-max {display:none!important;}
 .titlebar-restore {display:none!important;}
-.titlebar-close {display:none!important;}
+.titlebar-close {display:none!important;} */
 
 /* Adjust tab corner shape, optionally remove space below tabs */
 #tabbrowser-tabs {

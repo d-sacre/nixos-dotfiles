@@ -1,4 +1,4 @@
-# Derived from 
+# DESCRIPTION: Derived from SOURCES:
 # https://github.com/NapoleonWils0n/nixos-dotfiles/blob/master/nixos-dotfiles.org
 # https://github.com/mahmoudk1000/nix-config/blob/main/modules/programs/firefox.nix
 

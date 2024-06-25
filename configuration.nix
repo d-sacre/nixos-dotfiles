@@ -1,4 +1,4 @@
-# Main System Configuration File
+# DESCRIPTION: Main System Configuration File
 { config, pkgs, systemSettings, userSettings, ... }:
 
 {
@@ -7,7 +7,7 @@
     ./hardware-configuration.nix
   ];
 
-  # Bootloader.
+  # DESCRIPTION: Bootloader.
   boot.loader.grub = {
     enable = true;
     device = systemSettings.installation.bootloader.device;
@@ -15,17 +15,17 @@
   };
 
   networking = {
-    hostName = systemSettings.hostName; # Define your hostname.
-    # wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+    hostName = systemSettings.hostName; # DESCRIPTION: Define hostname.
+    # wireless.enable = true;  # DESCRIPTION: Enables wireless support via wpa_supplicant.
 
-    # Enable networking
+    # DESCRIPTION: Enable networking
     networkmanager.enable = true;
   };
 
-  # Set your time zone.
+  # DESCRIPTION: Set your time zone.
   time.timeZone = systemSettings.timeZone;
 
-  # Select internationalisation properties.
+  # DESCRIPTION: Select internationalisation properties.
   i18n.defaultLocale = systemSettings.locale.default;
 
   i18n.extraLocaleSettings = {
@@ -41,26 +41,32 @@
   };
 
   services.xserver = {
-    # Enable the X11 windowing system.
+    # DESCRIPTION: Enable the X11 windowing system.
     enable = true;
 
-    # Enable the XFCE Desktop Environment.
+    # DESCRIPTION: Enable the XFCE Desktop Environment.
     displayManager.lightdm.enable = true;
     desktopManager.xfce.enable = if (userSettings.desktopManager == "xfce") then true else false;
 
-    # Configure keymap in X11
-    layout = systemSettings.keyboard.layout;
-    xkbVariant = systemSettings.keyboard.variant;
+    # DESCRIPTION: Configure keymap in X11
+    # Before 24.05:
+    # layout = systemSettings.keyboard.layout;
+    # xkbVariant = systemSettings.keyboard.variant;
+    # Since 24.05: 
+    xkb = {
+      layout = systemSettings.keyboard.layout; 
+      variant = systemSettings.keyboard.variant;
+    }
   };
 
-  # Configure console keymap
+  # DESCRIPTION: Configure console keymap
   # REMARK: Should be composed from variables
   console.keyMap = systemSettings.keyboard.layout + "-latin1-" + systemSettings.keyboard.variant; #"de-latin1-nodeadkeys";
 
-  # Enable CUPS to print documents.
+  # DESCRIPTION: Enable CUPS to print documents.
   services.printing.enable = true;
 
-  # Enable sound with pipewire.
+  # DESCRIPTION: Enable sound with pipewire.
   sound.enable = true;
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
@@ -71,20 +77,20 @@
     pulse.enable = true;
   };
 
-  # Enable touchpad support (enabled default in most desktopManager).
+  # DESCRIPTION: Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
+  # DESCRIPTION: Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.${userSettings.userName} = {
     isNormalUser = true;
     description = userSettings.userName;
     extraGroups = [ "networkmanager" "wheel" ];
   };
 
-  # Allow unfree packages
+  # DESCRIPTION: Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  # List packages installed in system profile. To search, run:
+  # DESCRIPTION: List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     wget
@@ -99,7 +105,7 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = systemSettings.version; # Did you read the comment?
 
-  # Enable experimental features so that Flakes are supported
+  # DESCRIPTION: Enable experimental features so that Flakes are supported
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # DESCRIPTION: Enable virtualization features if installation is as virtual machine
@@ -115,10 +121,10 @@
 
   virtualisation.virtualbox.guest = if (systemSettings.installation.type == "virtual") then {
     enable = true;
-    #x11 = true;
+    #x11 = true; # REMARK: does no longer work in 24.05
   } else {
     enable = false;
-    #x11 = false;
+    #x11 = false; # REMARK: does no longer work in 24.05
   };
 
   users.extraGroups.vboxusers.members = if (systemSettings.installation.type == "virtual") then 
