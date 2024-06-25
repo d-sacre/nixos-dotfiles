@@ -115,10 +115,10 @@
 
   virtualisation.virtualbox.guest = if (systemSettings.installation.type == "virtual") then {
     enable = true;
-    x11 = true;
+    #x11 = true;
   } else {
     enable = false;
-    x11 = false;
+    #x11 = false;
   };
 
   users.extraGroups.vboxusers.members = if (systemSettings.installation.type == "virtual") then 
