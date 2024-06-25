@@ -56,7 +56,7 @@
     xkb = {
       layout = systemSettings.keyboard.layout; 
       variant = systemSettings.keyboard.variant;
-    }
+    };
   };
 
   # DESCRIPTION: Configure console keymap

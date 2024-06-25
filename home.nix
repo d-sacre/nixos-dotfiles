@@ -29,6 +29,10 @@
   # stable and unstable versions
   home.packages = ( with pkgs; [
     texstudio
+    godot3
+    godot3-export-templates
+    godot_4
+    godot_4-export-templates
   ]) 
 
   ++ 
@@ -44,6 +48,9 @@
     extensions = with pkgs.vscode-extensions; [
       bbenoist.nix
       ms-python.python
+      ms-vscode.cpptools
+      forevolve.git-extensions-for-vs-code
+      geequlim.godot-tools
     ];
   };
 
