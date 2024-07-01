@@ -86,11 +86,13 @@
 
       # REMARK: Moved from first part to here in hope that the other free ones would install again
       # REMARK: Have to check if telemetry is switched off!
+      # REMARK: Sha256 is platform dependent, which means that for this to be portable, one would have
+      # to distinguish different platforms!
       {
         name = "cpptools";
         publisher = "ms-vscode";
         version = "1.21.0";
-        sha256 = "sha256-/C7limNWL4F7A35LaCOiz17nCdCUZ6x/jISITPENR2w=";
+        sha256 = "sha256-hhH5GCvHiXlKPur9YkJSpz4IAPpCbu46Mu0t1SBGr4Q=";
       }
     ];
   };
