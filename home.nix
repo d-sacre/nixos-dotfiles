@@ -12,7 +12,7 @@
   # SOURCES:
   # https://nixos.wiki/wiki/Unfree_Software
   # https://discourse.nixos.org/t/unfree-packages-on-flake-based-home-manager/30231 
-  nixpkgs.config.allowUnfreePredicate = _: true;
+  # nixpkgs.config.allowUnfreePredicate = _: true;
   # inputs.nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
 
   # DESCRIPTION: Home Manager needs a bit of information about you and the paths it should
@@ -82,6 +82,15 @@
         publisher = "ms-vscode";
         version = "1.19.13";
         sha256 = "sha256-muJLMBembgeuHc5cHIVXibst0Y7pDdvD+I2EbFfLYYg=";
+      }
+
+      # REMARK: Moved from first part to here in hope that the other free ones would install again
+      # REMARK: Have to check if telemetry is switched off!
+      {
+        name = "cpptools";
+        publisher = "ms-vscode";
+        version = "1.21.0";
+        sha256 = "sha256-/C7limNWL4F7A35LaCOiz17nCdCUZ6x/jISITPENR2w=";
       }
     ];
   };
