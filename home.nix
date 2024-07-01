@@ -4,6 +4,8 @@
 
   imports = [
     ./apps/browser/firefox/firefox.nix
+    ./apps/browser/chromium/chromium.nix
+    ./apps/browser/brave/brave.nix
   ];
 
   # DESCRIPTION: Make sure that home manager can install unfree packages
@@ -11,7 +13,7 @@
   # https://nixos.wiki/wiki/Unfree_Software
   # https://discourse.nixos.org/t/unfree-packages-on-flake-based-home-manager/30231 
   nixpkgs.config.allowUnfreePredicate = _: true;
-  inputs.nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
+  # inputs.nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
 
   # DESCRIPTION: Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -64,15 +66,22 @@
     extensions = with pkgs.vscode-extensions; [
       bbenoist.nix
       ms-python.python
-      ms-vscode.cpptools # REMARK: Unfree license
+      # ms-vscode.cpptools # REMARK: Unfree license
       #forevolve.git-extensions-for-vs-code
-      #geequlim.godot-tools
     ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
       {
         name = "godot-tools";
         publisher = "geequlim";
-        version = "1.3.1";
-        sha256 = "wJICDW8bEBjilhjhoaSddN63vVn6l6aepPtx8VKTdZA";
+        version = "2.0.0";
+        sha256 = "sha256-6lSpx6GooZm6SfUOjooP8mHchu8w38an8Bc2tjYaVfw=";
+      }
+
+      # REMARK: Have to check if telemetry is switched off!
+      {
+        name = "cmake-tools";
+        publisher = "ms-vscode";
+        version = "1.19.13";
+        sha256 = "sha256-muJLMBembgeuHc5cHIVXibst0Y7pDdvD+I2EbFfLYYg=";
       }
     ];
   };
