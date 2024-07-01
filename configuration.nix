@@ -112,6 +112,12 @@
 
   # DESCRIPTION: Enable experimental features so that Flakes are supported
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix = {
+    package = pkgs.nixFlakes;
+    extraOptions = ''
+      experimental-features = nix-command flakes
+    '';
+  };
 
   # DESCRIPTION: Enable virtualization features if installation is as virtual machine
   # REMARK: Should be later put into an if-statement

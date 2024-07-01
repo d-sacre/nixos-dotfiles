@@ -31,8 +31,12 @@
     texstudio
     godot3
     godot3-export-templates
-    godot_4
-    godot_4-export-templates
+    # REMARK: Installing two Godot Version side by side is not possible due to issue with icon
+    # ERROR MESSAGE:
+    # > error: collision between `/nix/store/9g7kvimphj88yicmnwvj5rd6ifqib1wb-godot4-4.2.2-stable/share/icons/hicolor/scalable/apps/godot.svg' and 
+    # `/nix/store/5y6y6bsnxk1ijb2rbs7zx5faxvlxxc00-godot3-3.5.2/share/icons/hicolor/scalable/apps/godot.svg'
+    # godot_4
+    # godot_4-export-templates
   ]) 
 
   ++ 
