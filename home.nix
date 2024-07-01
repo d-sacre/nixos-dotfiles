@@ -12,7 +12,7 @@
   # SOURCES:
   # https://nixos.wiki/wiki/Unfree_Software
   # https://discourse.nixos.org/t/unfree-packages-on-flake-based-home-manager/30231 
-  # nixpkgs.config.allowUnfreePredicate = _: true;
+  nixpkgs.config.allowUnfreePredicate = _: true;
   # inputs.nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
 
   # DESCRIPTION: Home Manager needs a bit of information about you and the paths it should
@@ -36,66 +36,55 @@
   # environment.
   # REMARK: Split into different package sets to allow for parallel usage of
   # stable and unstable versions
-  home.packages = ( with pkgs; [ # DESCRIPTION: Install packages from STABLE branch
-    # Typesetting
-    texstudio
+  # WARNING: Mixing stable and unstable can lead to issues, since the evaluator is based upon one version 
+  # (in this case: stable), whcih can lead to missing functionality when trying to install unstable content
+  home.packages = ( 
+    # DESCRIPTION: Install packages from STABLE branch
+    with pkgs; [ 
+      # Typesetting
+      texstudio
 
-    # Game Development
-    godot3
-    godot3-export-templates
-    # REMARK: Installing two Godot Version side by side is not possible due to issue with icon
-    # ERROR MESSAGE:
-    # > error: collision between `/nix/store/9g7kvimphj88yicmnwvj5rd6ifqib1wb-godot4-4.2.2-stable/share/icons/hicolor/scalable/apps/godot.svg' and 
-    # `/nix/store/5y6y6bsnxk1ijb2rbs7zx5faxvlxxc00-godot3-3.5.2/share/icons/hicolor/scalable/apps/godot.svg'
-    # godot_4
-    # godot_4-export-templates
-  ]) 
+      # General Development
+      # DESCRIPTION: Install VSCodium instead of VSCode and add some extensions
+      (
+        vscode-with-extensions.override {
+          vscode = vscodium;
+          vscodeExtensions = with vscode-extensions; [
+            bbenoist.nix
+            ms-python.python
+            ms-vscode.cpptools # REMARK: Unfree license
+            ms-vscode.cmake-tools
+          ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+            {
+              name = "godot-tools";
+              publisher = "geequlim";
+              version = "2.0.0";
+              sha256 = "sha256-6lSpx6GooZm6SfUOjooP8mHchu8w38an8Bc2tjYaVfw=";
+            }
+          ];
+        }
+      )
+
+      # Game Development
+      godot3
+      godot3-export-templates
+      # REMARK: Installing two Godot Version side by side is not possible due to issue with icon
+      # ERROR MESSAGE:
+      # > error: collision between `/nix/store/9g7kvimphj88yicmnwvj5rd6ifqib1wb-godot4-4.2.2-stable/share/icons/hicolor/scalable/apps/godot.svg' and 
+      # `/nix/store/5y6y6bsnxk1ijb2rbs7zx5faxvlxxc00-godot3-3.5.2/share/icons/hicolor/scalable/apps/godot.svg'
+      # godot_4
+      # godot_4-export-templates
+    ]
+  ) 
 
   ++ 
 
-  ( with pkgs-unstable; [ # DESCRIPTION: Install packages from UNSTABLE branch
-      # Typesetting
-      texliveFull
-  ]
+  ( # DESCRIPTION: Install packages from UNSTABLE branch
+    with pkgs-unstable; [ 
+        # Typesetting
+        texliveFull
+    ]
   );
-
-  # DESCRIPTION: Install VSCodium with extensions
-  programs.vscode = {
-    enable = true;
-    package = pkgs.vscodium;
-    extensions = with pkgs.vscode-extensions; [
-      bbenoist.nix
-      ms-python.python
-      # ms-vscode.cpptools # REMARK: Unfree license
-      #forevolve.git-extensions-for-vs-code
-    ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
-      {
-        name = "godot-tools";
-        publisher = "geequlim";
-        version = "2.0.0";
-        sha256 = "sha256-6lSpx6GooZm6SfUOjooP8mHchu8w38an8Bc2tjYaVfw=";
-      }
-
-      # REMARK: Have to check if telemetry is switched off!
-      {
-        name = "cmake-tools";
-        publisher = "ms-vscode";
-        version = "1.19.13";
-        sha256 = "sha256-muJLMBembgeuHc5cHIVXibst0Y7pDdvD+I2EbFfLYYg=";
-      }
-
-      # REMARK: Moved from first part to here in hope that the other free ones would install again
-      # REMARK: Have to check if telemetry is switched off!
-      # REMARK: Sha256 is platform dependent, which means that for this to be portable, one would have
-      # to distinguish different platforms!
-      {
-        name = "cpptools";
-        publisher = "ms-vscode";
-        version = "1.21.0";
-        sha256 = "sha256-hhH5GCvHiXlKPur9YkJSpz4IAPpCbu46Mu0t1SBGr4Q=";
-      }
-    ];
-  };
 
   # # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # # plain files is through 'home.file'.
