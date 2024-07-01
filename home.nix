@@ -6,6 +6,13 @@
     ./apps/browser/firefox/firefox.nix
   ];
 
+  # DESCRIPTION: Make sure that home manager can install unfree packages
+  # SOURCES:
+  # https://nixos.wiki/wiki/Unfree_Software
+  # https://discourse.nixos.org/t/unfree-packages-on-flake-based-home-manager/30231 
+  nixpkgs.config.allowUnfreePredicate = _: true;
+  inputs.nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
+
   # DESCRIPTION: Home Manager needs a bit of information about you and the paths it should
   # manage.
   home = {
@@ -27,8 +34,11 @@
   # environment.
   # REMARK: Split into different package sets to allow for parallel usage of
   # stable and unstable versions
-  home.packages = ( with pkgs; [
+  home.packages = ( with pkgs; [ # DESCRIPTION: Install packages from STABLE branch
+    # Typesetting
     texstudio
+
+    # Game Development
     godot3
     godot3-export-templates
     # REMARK: Installing two Godot Version side by side is not possible due to issue with icon
@@ -41,20 +51,29 @@
 
   ++ 
 
-  ( with pkgs-unstable; [
+  ( with pkgs-unstable; [ # DESCRIPTION: Install packages from UNSTABLE branch
+      # Typesetting
       texliveFull
   ]
   );
 
+  # DESCRIPTION: Install VSCodium with extensions
   programs.vscode = {
     enable = true;
     package = pkgs.vscodium;
     extensions = with pkgs.vscode-extensions; [
       bbenoist.nix
       ms-python.python
-      ms-vscode.cpptools
+      ms-vscode.cpptools # REMARK: Unfree license
       #forevolve.git-extensions-for-vs-code
       #geequlim.godot-tools
+    ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+      {
+        name = "godot-tools";
+        publisher = "geequlim";
+        version = "1.3.1";
+        sha256 = "wJICDW8bEBjilhjhoaSddN63vVn6l6aepPtx8VKTdZA";
+      }
     ];
   };
 
