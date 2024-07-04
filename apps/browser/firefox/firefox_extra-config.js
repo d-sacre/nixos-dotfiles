@@ -8,16 +8,19 @@ user_pref("browser.contentblocking.category", "strict");
 user_pref("browser.download.alwaysOpenPanel", false);
 // downloads button
 user_pref("browser.engagement.downloads-button.has-used", true);
-// tab manager = false
-user_pref("beacon.enabled", false);
-// about config warning = false
-user_pref("browser.aboutConfig.showWarning", false); 
-// strictcontent blocking
-user_pref("browser.tabs.tabmanager.enabled", false);
-// safebrowsing = false
+
+/* safebrowsing = false
+DESCRIPTION: For each downloaded file, Firefox will send a request to Google's safe browsing database,
+which can be a privacy concern. Setting appRepURL to an empty string will prevent the request to be sent.
+WARNING: Disabling safe browsing is a potential security risk and should only be done if the privacy aspect
+is more important than the security aspect.
+*/
 user_pref("browser.safebrowsing.appRepURL", "");
 user_pref("browser.safebrowsing.malware.enabled", false);
-// browser search
+
+/* Browser Search Configuration
+DESCRIPTION: 
+*/
 user_pref("browser.search.hiddenOneOffs", "Google,Yahoo,Bing,Amazon.com,Twitter");
 // browser search suggest = false
 user_pref("browser.search.suggest.enabled", false);
@@ -25,12 +28,17 @@ user_pref("browser.search.suggest.enabled", false);
 user_pref("browser.search.widget.inNavBar", true);
 // browser send pings = false
 user_pref("browser.send_pings", false);
-// homepage blank
-user_pref("browser.startup.homepage", "about:blank");
-// startup page
-user_pref("browser.startup.page", "3");
-// startup homepage = blank
-user_pref("browser.startup.homepage", "about:blank");
+
+/* Configure startup page/behavior
+Impact of browser.startup.page: (SOURCE: http://kb.mozillazine.org/Browser.startup.page#3)
+    "0" = blank page ("about:blank")
+    "1" = page(s) defined as home pages (default)
+    "2" = load last visited page 
+    "3" = resume previous session
+*/
+user_pref("browser.startup.page", "0"); // blank page upon startup
+user_pref("browser.startup.homepage", "about:blank"); // set homepage to blank for good measure
+
 // tabs firefox view = false
 user_pref("browser.tabs.firefox-view", false);
 // tabmanager = false
@@ -46,60 +54,15 @@ user_pref("browser.newtabpage.activity-stream.feeds.topsites", false);
 user_pref("browser.toolbars.bookmarks.visibility", "never");
 // browser ui density
 user_pref("browser.uidensity", "1");
+
+/* Configuration of URL bar
+*/
 // urlbar speculativeconnect = false
 user_pref("browser.urlbar.speculativeConnect.enabled", false);
 // urlbar bookmarks = false
 user_pref("browser.urlbar.shortcuts.bookmarks", false);
 // urlbar history = false
 user_pref("browser.urlbar.shortcuts.history", false);
-// urlbar shortcuts tabs = false
-// missing
-// beacon = false
-user_pref("beacon.enabled", false);
-// about config warning = false
-user_pref("browser.aboutConfig.showWarning", false); 
-// strictcontent blocking
-user_pref("browser.contentblocking.category", "strict");
-// download dont open panel in toolbar
-user_pref("browser.download.alwaysOpenPanel", false);
-// downloads button
-user_pref("browser.engagement.downloads-button.has-used", true);
-// tab manager = false
-user_pref("browser.tabs.tabmanager.enabled", false);
-// safebrowsing = false
-user_pref("browser.safebrowsing.appRepURL", "");
-user_pref("browser.safebrowsing.malware.enabled", false);
-// browser search
-user_pref("browser.search.hiddenOneOffs", "Google,Yahoo,Bing,Amazon.com,Twitter");
-// browser search suggest = false
-user_pref("browser.search.suggest.enabled", false);
-// search bar in toolbar
-user_pref("browser.search.widget.inNavBar", true);
-// browser send pings = false
-user_pref("browser.send_pings", false);
-// homepage blank
-user_pref("browser.startup.homepage", "about:blank");
-// startup page
-user_pref("browser.startup.page", "3");
-// startup homepage = blank
-user_pref("browser.startup.homepage", "about:blank");
-// tabs firefox view = false
-user_pref("browser.tabs.firefox-view", false);
-// tabmanager = false
-user_pref("browser.tabs.tabmanager.enabled", false);
-// newtab = false
-user_pref("browser.newtabpage.enabled", false);
-// activity stream
-user_pref("browser.newtabpage.activity-stream.showSeach", false);
-user_pref("browser.newtabpage.activity-stream.showSponsored", false);
-user_pref("browser.newtabpage.activity-stream.showSponsoredTopSites", false);
-user_pref("browser.newtabpage.activity-stream.feeds.topsites", false);
-// bookmarks toolbar visibility = never
-user_pref("browser.toolbars.bookmarks.visibility", "never");
-// browser ui density
-user_pref("browser.uidensity", "1");
-// urlbar speculativeconnect = false
-user_pref("browser.urlbar.speculativeConnect.enabled", false);
 // urlbar("browser.urlbar.suggest.engines", false);
 // urlbar suggest history = false
 user_pref("browser.urlbar.suggest.history", false);
@@ -109,6 +72,7 @@ user_pref("browser.urlbar.suggest.openpage", false);
 user_pref("browser.urlbar.suggest.searches", false);
 // urlbar suggest topsites = false
 user_pref("browser.urlbar.suggest.topsites", false);
+
 // firefox healthreport upload = false
 user_pref("datareporting.healthreport.uploadEnabled", false);
 // dont let sites disable copy and paste
