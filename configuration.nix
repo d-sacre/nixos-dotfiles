@@ -100,6 +100,7 @@
   environment.systemPackages = with pkgs; [
     wget
     git
+    evince
   ];
 
   # This value determines the NixOS release from which the default

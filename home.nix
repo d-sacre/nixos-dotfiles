@@ -41,10 +41,41 @@
   home.packages = ( 
     # DESCRIPTION: Install packages from STABLE branch
     with pkgs; [ 
+      # Office
+      libreoffice
+      logseq
+      thunderbird
+
+      # Graphics (alphabetical order)
+      # darktable
+      gimp-with-plugins
+      imagemagick
+      inkscape-with-extensions
+      krita
+      # opentoonz
+      pinta
+      viewnior
+
+      # 3D/CAD
+      blender
+      fspy
+      freecad
+      openscad
+      # meshlab
+      # meshroom # not available by default
+
       # Typesetting
       texstudio
 
       # General Development
+      # arduino
+      # arduino-ide
+      clang-tools
+      cmakeWithGui
+      gnumake
+      # guiscrcpy # not available
+      # jupyter notebooks # have to figure how to install them 
+      speedcrunch
       # DESCRIPTION: Install VSCodium instead of VSCode and add some extensions
       (
         vscode-with-extensions.override {
@@ -74,6 +105,37 @@
       # `/nix/store/5y6y6bsnxk1ijb2rbs7zx5faxvlxxc00-godot3-3.5.2/share/icons/hicolor/scalable/apps/godot.svg'
       # godot_4
       # godot_4-export-templates
+
+      # Virtualization
+
+      # Audio
+      audacious
+      audacity
+      # sonic-visualiser
+
+      # Music
+      # musescore
+      # tuxguitar
+
+      # Video
+      # kdePackages.kdenlive
+      mpv
+      vlc
+
+      # Security/Privacy
+      # bleachbit
+      clamav
+      clamtk
+      keepass
+
+      # Streaming
+      # obs-studio
+
+      # Tools
+      # android-file-transfer
+      # breitbandmessung
+      mate.engrampa
+      webcamoid
     ]
   ) 
 
