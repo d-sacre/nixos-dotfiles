@@ -58,7 +58,7 @@
 
       # 3D/CAD
       blender
-      fspy
+      # fspy # unsecure package. Has to be installed via permittedInsecurePackages
       freecad
       openscad
       # meshlab
