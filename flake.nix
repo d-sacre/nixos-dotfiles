@@ -11,10 +11,15 @@
         nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
         home-manager.url = "github:nix-community/home-manager/release-24.05";
         home-manager.inputs.nixpkgs.follows = "nixpkgs";
+        firefox-addons = { 
+            url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons"; 
+            inputs.nixpkgs.follows = "nixpkgs"; 
+        };
     };
 
-    outputs = {self, nixpkgs, nixpkgs-unstable, home-manager, ...}: 
+    outputs = inputs @ {self, nixpkgs, nixpkgs-unstable, firefox-addons, home-manager, ...}: 
     let
+        inherit (self) outputs;
         # DESCRIPTION: Custom System Settings
         systemSettings = {
             hostName = "nixos";
@@ -54,12 +59,15 @@
                 system = systemSettings.architecture;
                 modules = [ 
                     ./configuration.nix 
+                    # REMARK: It is not possible to use machine specific hardware configurations,
+                    # since NixOS does not allow the usage of another path than the standard one
                     # ./machines/tank/hardware-configuration.nix
                 ];
 
                 # DESCRIPTION: Pass special args to NixOS configuration
                 # REMARK: Only works with Flakes!
                 specialArgs = {
+                    inherit inputs self;
                     inherit systemSettings;
                     inherit userSettings;
                     inherit pkgs-unstable;
@@ -76,6 +84,7 @@
                 # DESCRIPTION: Pass special args to NixOS configuration
                 # REMARK: Only works with Flakes!
                 specialArgs = {
+                    inherit inputs self;
                     inherit systemSettings;
                     inherit userSettings;
                     inherit pkgs-unstable;
@@ -90,6 +99,24 @@
             # DESCRIPTION: Pass special args to Home Manager configuration
             # REMARK: Only works with Flakes!
             extraSpecialArgs = {
+                inherit inputs self;
+                inherit systemSettings;
+                inherit userSettings;
+                inherit pkgs-unstable;
+            };
+        };
+
+        homeConfigurations.razorblade = home-manager.lib.homeManagerConfiguration {
+            inherit pkgs;
+            modules = [ 
+                ./home.nix 
+                ./machines/razorblade/applications/blender.nix
+            ];
+
+            # DESCRIPTION: Pass special args to Home Manager configuration
+            # REMARK: Only works with Flakes!
+            extraSpecialArgs = {
+                inherit inputs self;
                 inherit systemSettings;
                 inherit userSettings;
                 inherit pkgs-unstable;

@@ -1,5 +1,5 @@
 # DESCRIPTION: Main System Configuration File
-{ config, pkgs, systemSettings, userSettings, ... }:
+{ inputs, config, pkgs, systemSettings, userSettings, ... }:
 
 {
   imports =
@@ -81,11 +81,14 @@
   # DESCRIPTION: Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
+  # Scanner Support
+  hardware.sane.enable = true; # enables support for SANE scanners
+
   # DESCRIPTION: Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.${userSettings.userName} = {
     isNormalUser = true;
     description = userSettings.userName;
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "scanner" "lp" ]; # REMARK: "scanner" "lp" required for Scanner Support
   };
 
   # DESCRIPTION: Allow unfree packages
@@ -102,6 +105,8 @@
     wget
     git
     evince
+    epsonscan2
+    zip
   ];
 
   # This value determines the NixOS release from which the default

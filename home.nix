@@ -1,4 +1,4 @@
-{ config, pkgs, pkgs-unstable, systemSettings, userSettings, ... }:
+{ inputs, config, pkgs, pkgs-unstable, systemSettings, userSettings, ... }:
 
 {
 

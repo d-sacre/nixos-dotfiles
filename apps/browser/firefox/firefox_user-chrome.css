@@ -35,11 +35,11 @@
 #context-sendimage, /* email */
 /*#context-bookmarklink,*/ /* bookmark link */
 /* #context-savelink, save link */
-#context-copyimage-contents, /* copy image */
+/*#context-copyimage-contents,*/ /* copy image */
 #context-take-screenshot, /* take screenshot */
 /* #context-openlinkintab, open link in tab */
 /* #context-openlink, open link in new window */
-#context-openlinkprivate, /* open link in private window */
+/*#context-openlinkprivate,*/ /* open link in private window */
 #context-searchselect, /* search for */
 #context-searchselect-private, /* search for private */
 #context-inspect-a11y, /* accessability */
@@ -57,9 +57,9 @@
 #context-sendimage, /* email image */
 #context-undo, /* undo */
 #context-redo, /* redo */
-#context-cut, /* cut */
-#context-copy, /* copy */
-#context-paste, /* paste */
+/*#context-cut,*/ /* cut */
+/*#context-copy,*/ /* copy */
+/*#context-paste,*/ /* paste */
 #context-delete, /* delete */
 #context-keywordfield, /* add a keyword for this search */
 #context-selectall /* select all */
