@@ -30,7 +30,7 @@
                 variant = "nodeadkeys";
             };
             installation = {
-                type = "virtual"; # Allowed values: virtual
+                type = "native";#"virtual"; # Allowed values: virtual
                 bootloader = {
                     device = "/dev/sda";
                 };
@@ -39,7 +39,7 @@
 
         # DESCRIPTION: Custom User Settings
         userSettings = {
-            userName = "nixos";
+            userName = "nixe"; #"nixos";
             desktopManager = "xfce"; # Allowed values: xfce
         };
 
@@ -50,7 +50,7 @@
         
     in {
         nixosConfigurations = {
-            nixos = lib.nixosSystem {
+            tank = lib.nixosSystem {
                 system = systemSettings.architecture;
                 modules = [ ./configuration.nix ];
 
@@ -64,7 +64,7 @@
             };
         };
 
-        homeConfigurations.${userSettings.userName} = home-manager.lib.homeManagerConfiguration {
+        homeConfigurations.tank = home-manager.lib.homeManagerConfiguration {
             inherit pkgs;
             modules = [ ./home.nix ];
 

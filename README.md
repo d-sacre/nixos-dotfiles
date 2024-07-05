@@ -65,6 +65,21 @@ Some changes like in the Firefox configuration will not work unless the backup o
 home-manager switch -b backup --flake <PATH>#<USERNAME>
 ```
 
+## Problems with hardware-configuration.nix
+If the hardware configuration is faulty or will not be regenerate properly to take into account recent change, the file can be also forced to be recreated:
+```sh
+sudo nixos-generate-config
+```
+This creates `/etc/nixos/hardware-configuration.nix`. If the nixos-rebuild should be done with this flake located in the `~/.dotfiles directory, it has to be copied.
+. The hardware configuration file is absolutely necessary; if deleted, one will only obtain an error message, and the file will not automatically be created.
+
+## Mounted Devices might be no longer accessible after nixos-rebuild
+Before running 
+```sh
+sudo nixos-rebuild switch
+```
+one should make sure that there are no devices mounted. Otherwise it might occur that the device will be unmountable after the rebuild due to ownership errors. Occured with ntfs formatted harddrive.
+
 General Inspiration: <br>
 https://gitlab.com/Oglo12/nixos-config<br><br>
 
