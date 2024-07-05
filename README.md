@@ -1,6 +1,13 @@
 # nixos-dotfiles
 A collection of dotfiles to configure NixOS
 
+# Things to do after new Installation
+- Setup git
+```sh
+git config --global user.name "USER_NAME"
+git config --global user.email "USER_EMAIL"
+```
+
 # Useful Things to Know
 ## Enable Flakes by Default
 ```nix

@@ -52,7 +52,26 @@
         nixosConfigurations = {
             tank = lib.nixosSystem {
                 system = systemSettings.architecture;
-                modules = [ ./configuration.nix ];
+                modules = [ 
+                    ./configuration.nix 
+                    # ./machines/tank/hardware-configuration.nix
+                ];
+
+                # DESCRIPTION: Pass special args to NixOS configuration
+                # REMARK: Only works with Flakes!
+                specialArgs = {
+                    inherit systemSettings;
+                    inherit userSettings;
+                    inherit pkgs-unstable;
+                };
+            };
+
+            virtualMachine = lib.nixosSystem {
+                system = systemSettings.architecture;
+                modules = [ 
+                    ./configuration.nix 
+                    ./machines/virtualMachine/virtualMachine.nix
+                ];
 
                 # DESCRIPTION: Pass special args to NixOS configuration
                 # REMARK: Only works with Flakes!
